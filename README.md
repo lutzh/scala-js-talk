@@ -1,11 +1,11 @@
 # Example application written in Scala.js
 
-This is a barebone example of an application written in
-[Scala.js](https://github.com/lampepfl/scala-js).
+These are some slides and code I used for a talk about 
+[Scala.js](http://www.scala-js.org).
 
 ## Get started
 
-To get started, open `sbt` in this example project, and issue the task
+To get started, open `sbt` in this scala-js-tiny-example project, and issue the task
 `packageJS`. This creates the file `target/scala-2.10/example.js` and its
 siblings `example-extdeps.js` and `example-intdeps.js`.
 You can now open `index-dev.html` in your favorite Web browser!

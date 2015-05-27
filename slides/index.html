@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Scala.js at a Glance</title>
+
+    <meta name="description" content="An inadequate introduction to Scala.js">
+    <meta name="author" content="Lutz Huehnken">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/custom.css" id="theme">
+    <link rel="stylesheet" href="lib/css/idea.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<aside style="display: block; position: fixed; bottom: 20px; left: 20px; z-index: 30;">
+    <a href="http://typesafe.com"><img src="assets/typesafe_full_color.png"></a>
+</aside>
+
+<div class="reveal">
+
+<div class="slides">
+
+<!-- ########################################################################################### -->
+<!-- BEGIN
+<!-- ########################################################################################### -->
+
+<section id="content" data-markdown data-background="#53cdec" data-state="h2Uppercase"><script type="text/template">
+## Scala.js at a Glance
+
+### Lutz Huehnken
+
+@lutzhuehnken
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section>
+<h2>About Typesafe</h2>
+<h4>Our products (free, open source): </h4><p> Scala, Akka (Actors on the JVM), Play (Web framework), <br/>sbt (Build tool), Scala IDE, Slick (RDMBS persistence)</p>
+
+
+<h4>For these, we offer</h4>
+<ul><li>Developer support</li><li>Production support</li><li>Consulting</li><li>Training</li></ul>
+</section>
+
+<!-- ########################################################################################### -->
+
+<section>
+<h2>About me</h2>
+<ul>
+    <li>Java since ~1997</li>
+    <li>Over time, had a variety of job titles, including consultant, architect, it project manager, it manager, scrum master.</li>
+    <li>After dealing mostly with the development process for some years, my “discovery” of Scala (ca. 2011) revived interest in actual coding</li>
+    <li>Developing with Scala since 2012 (primarily REST back-ends for mobile applications)</li>
+    <li>Since April 2014 trainer and consultant for Typesafe</li>
+</ul>    
+</section>
+
+<!-- ########################################################################################### -->
+
+<section>
+<h2>Front-end / JavaScript experiences</h2>
+<ul>
+    <li>Backoffice application for travel agency with GWT</li>
+    <li>Migrating large TV/set-top box application from Flash to JavaScript/jQuery</li>
+    <li>PhoneGap application with jqMobi, require.js, underscore.js, backbone.js</li>
+</ul>    
+</section>
+
+</section>  
+
+
+<!-- ########################################################################################### -->
+<!-- Java 8 Overview
+<!-- ########################################################################################### -->
+
+<section>
+
+<section id="why" data-markdown data-background="#53cdec" data-state="h2Uppercase"><script type="text/template">
+## The thing with JavaScript
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+<p>A modern web application is mostly a JavaScript application. </p>
+<p>It&apos;s cross-platform, no installation necessary, great user acceptance. </p>
+<p>JavaScript is just there. It is _the_ cross platform runtime. </p>
+<p>But... </p>
+</script></section>
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+<p>But people go to great lengths to not actually use JavaScript as a language.</p>
+
+- CoffeeScript
+- TypeScript
+- Dart
+- ClojureScript (Clojure)
+- PureScript (Haskell)
+- Ceylon
+- emscripten (LLVM)
+- GWT / Vaadin (Java)
+- ...
+
+<p>Use JavaScript the platform, not the language</p>
+</script></section>
+
+
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+And now Scala.
+
+![Tweet](assets/stoneage.png "tweet") <!-- .element: class="fragment" data-fragment-index="0" -->
+
+If you like Scala, why not use Scala to write your front-end code as well? Scala.js allows this. 
+
+<!-- .element: class="fragment" data-fragment-index="1" -->
+</script></section>
+
+
+
+</section>
+
+<!-- ########################################################################################### -->
+<!-- How Scala.js works
+<!-- ########################################################################################### -->
+
+<section>
+
+<section id="how" data-markdown data-background="#53cdec" data-state="h2Uppercase"><script type="text/template">
+## About Scala.js
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Brief history
+
+- developed at EPFL
+- Sébastien Doeraene and Tobias Schlatter
+- version 0.1 in December 2013
+- current: 0.6
+- has just been declared "no longer experimental"
+</script></section>
+
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Big picture
+![Bic Picture](assets/big-picture.png "big-picture") 
+
+(image by Sébastien Doeraene)
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Compiler plugin
+
+- scala-js sbt plugin will provide compiler plugin
+- compiles AST into JavaScript
+- creates source map
+- optimizes code (Google Closure)
+- best start with sbt sample project
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Pipeline
+
+![Pipeline](assets/js-pipeline.png "js-pipeline") 
+
+(image by Sébastien Doeraene)
+</script></section>
+
+
+<section data-markdown><script type="text/template">
+## Look out for
+
+- unrestricted access to DOM
+- sbt integration
+- source maps
+- static checking
+- closure compiler
+</script></section>
+
+
+
+<!-- ########################################################################################### -->
+<!-- A look at some code
+<!-- ########################################################################################### -->
+
+
+<section id="what" data-markdown data-background="#53cdec" data-state="h2Uppercase"><script type="text/template">
+## Switch to source code
+</script></section>
+
+</section>
+<!-- ########################################################################################### -->
+<!-- Are we there yet?
+<!-- ########################################################################################### -->
+
+<section>
+
+<section id="limitations" data-markdown data-background="#53cdec" data-state="h2Uppercase"><script type="text/template">
+## Looking ahead
+</script></section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Java JVM vs JS runtime
+
+
+- Goal: Use known abstractions from Scala also on the JS runtime
+- many things (hof, pattern matching) translate easily, as we have just seen
+- but not everything..
+
+</script>
+</section>
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Concurrency
+
+- JMV: Threads
+- JavaScript: Callbacks
+- common abstraction?
+
+</script>
+</section>
+
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+
+<p>
+<img src="assets/akka_full_color.png"></a>
+</p>
+
+</script>
+</section>
+
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## What is an actor?
+
+- Has a mailbox
+- Receives messages
+- Processes messages sequentially
+- Actor framework for the JVM: Akka
+
+</script>
+</section>
+
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Akka.js
+
+- Goal: Build Akka for JVM and JS from the same source base
+- Status: "We're not actively working on this right now, but happy to share the code and work with anyone interested to work on this."
+- https://github.com/typesafehub/akka-js
+
+</script>
+</section>
+
+
+<!-- ########################################################################################### -->
+
+<section data-markdown><script type="text/template">
+## Interesting projects
+
+### by Johannes Rudolph
+- https://github.com/jrudolph/akka-http-scala-js-websocket-chat
+
+### by Li Haoyi
+- ScalaTags - https://github.com/lihaoyi/scalatags
+- ScalaRX - https://github.com/lihaoyi/scala.rx
+
+</script></section>
+
+<!-- ########################################################################################### -->
+
+
+<section data-markdown><script type="text/template">
+## And lastly (also by Li Haoyi)
+http://www.scala-js-fiddle.com/
+</script></section>
+
+<!-- ########################################################################################### -->
+
+
+<section data-markdown><script type="text/template">
+## Thank you
+
+<p>Scala JS home page</p>
+<p>http://www.scala-js.org</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>https://twitter.com/lutzhuehnken</p>
+</script></section>
+
+<!-- ########################################################################################### -->
+
+
+</section> 
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
